@@ -20,7 +20,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:latest .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/devops-test:$(date +%s)
+ .
 
       - name: Push to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:$(date +%s)
