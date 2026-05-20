@@ -25,23 +25,17 @@ jobs:
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
 
-      - name: Execute remote SSH commands using password
+      - name: Deploy to Remote Server via SSH
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          script: whoami
-      
-      - name: Stop Docker image
-        run: docker stop devops-test
-      
-      -name: Remove Docker image
-        run: docker rm devops-test
-      
-      -name: Pull Docker image
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
-      
-      -name: Run Docker image
-        run: docker run -d -p --name devops-test 80:80 ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
+          script: |
+            docker stop devops-test || true
+            docker rm devops-test || true
+
+            docker pull ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
+
+            docker run -d -p 80:80 --name devops-test ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
