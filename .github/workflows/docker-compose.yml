@@ -1,0 +1,6 @@
+services:
+  web:
+    image: odesomidavid/devops-test:version-17
+    ports:
+      - "80:80"
+    restart: always

@@ -25,15 +25,15 @@ jobs:
       - name: Push Docker Image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
 
-      - name: Deploy to Remote Server via SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }} # Changed from password to key
-          port: ${{ secrets.PORT }}
-          script: |
-            docker stop devops-test || true
-            docker rm devops-test || true
-            docker pull ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
-            docker run -d -p 80:80 --name devops-test ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
+      # - name: Deploy to Remote Server via SSH
+      #   uses: appleboy/ssh-action@v1
+      #   with:
+      #     host: ${{ secrets.HOST }}
+      #     username: ${{ secrets.USERNAME }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }} # Changed from password to key
+      #     port: ${{ secrets.PORT }}
+      #     script: |
+      #       docker stop devops-test || true
+      #       docker rm devops-test || true
+      #       docker pull ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
+      #       docker run -d -p 80:80 --name devops-test ${{ secrets.DOCKER_USERNAME }}/devops-test:version-${{ github.run_number }}
