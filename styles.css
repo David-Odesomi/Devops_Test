@@ -5,12 +5,12 @@
 }
 
 :root {
-  --bg: #F5F2EB;
-  --ink: #1A1814;
-  --muted: #7A7570;
-  --accent: #C84B2F;
-  --card-bg: #e5ff00;
-  --border: #D6D1C7;
+  --bg: #FFF7ED;
+  --ink: #1C1917;
+  --muted: #78716C;
+  --accent: #EA580C;
+  --card-bg: #FFEDD5;
+  --border: #E7E5E4;
 }
 
 body {
